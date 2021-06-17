@@ -1,5 +1,9 @@
 package aspects.aspect;
 
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -8,16 +12,36 @@ import org.aspectj.lang.annotation.Pointcut;
 public class LoggingAspect {
 
 //	@Before("execution(public String aspects.model.Circle.getName())")
-	@Before("allGetters() || allCircleMethods()")
-	public void LoggingAdvice() {
+	@Before("allCircleMethods()")
+	public void LoggingAdvice(JoinPoint joinPoint) {
 
-		System.out.println("before Allg and allC");
+		System.out.println(joinPoint.getTarget());
+		
+	}
+	
+	@AfterThrowing("args(name)")
+	public void exceptionAdvice(String name) {
+		
+		System.out.println("Exception has been thrown");
+	}
+	
+	
+	@After("args(name)")
+	public void stringArgument(String name) {
+		System.out.println("A method that takes String argument: "+name);
 	}
 
+	@AfterReturning("args(name)")
+	public void stringArgumentAfterReturning(String name) {
+		System.out.println("AfterReturning: "+name);
+	}
 	
-	  @Before("execution(* get*(..))") public void secondAdvice() {
-	  
-		  System.out.println("second Advice "); }
+	
+	/*
+	 * @Before("execution(* get*(..))") public void secondAdvice() {
+	 * 
+	 * System.out.println("second Advice "); }
+	 */
 	 
 
 	@Pointcut("execution(* get*(..))")
