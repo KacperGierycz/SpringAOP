@@ -1,9 +1,11 @@
 package aspects.aspect;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -19,10 +21,28 @@ public class LoggingAspect {
 		
 	}
 	
-	@AfterThrowing("args(name)")
-	public void exceptionAdvice(String name) {
+	@AfterThrowing(pointcut="args(name)", throwing ="ex")
+	public void exceptionAdvice(String name, RuntimeException ex) {
 		
 		System.out.println("Exception has been thrown");
+	}
+	
+	@Around("allGetters()")
+	public Object myAroundAdvice(ProceedingJoinPoint proceeding) {
+		
+		Object returnValue=null;
+		
+		try {
+			System.out.println("before advice");
+		//	proceeding.proceed();
+			returnValue= proceeding.proceed();
+			System.out.println("after returning");
+		} catch (Throwable e) {
+System.out.println("After Throwing");
+		}
+		System.out.println("after Finally");
+		
+		return returnValue;
 	}
 	
 	
@@ -37,13 +57,14 @@ public class LoggingAspect {
 	}
 	
 	@AfterReturning(pointcut="args(name)", returning="returnString")
-	public void stringArgumentAfterReturning2(String name, String returnString) {
+	public void stringArgumentAfterReturning2(String name, Object returnString) {
 		System.out.println("AfterReturningString2: "+name + " the output value is "+returnString);
 	}
 	
 	
 	/*
 	 * @Before("execution(* get*(..))") public void secondAdvice() {
+	 * 
 	 * 
 	 * System.out.println("second Advice "); }
 	 */

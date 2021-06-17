@@ -16,7 +16,9 @@ public class Circle {
 	
 	public String setNameReturn(String name) {
 		this.name = name;
+
 		System.out.println("!!Circle seter calls!!");
+		
 		return name;
 	}
 	
