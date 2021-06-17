@@ -8,19 +8,28 @@ import org.aspectj.lang.annotation.Pointcut;
 public class LoggingAspect {
 
 //	@Before("execution(public String aspects.model.Circle.getName())")
-	@Before("AllGetters()")
+	@Before("allGetters() || allCircleMethods()")
 	public void LoggingAdvice() {
-		
+
+		System.out.println("before Allg and allC");
+	}
+
+	
+	  @Before("execution(* get*(..))") public void secondAdvice() {
+	  
+		  System.out.println("second Advice "); }
+	 
+
+	@Pointcut("execution(* get*(..))")
+	public void allGetters() {
 		System.out.println("Advice run .Get method caled");
 	}
-	
-	@Before("execution(* get*(..))")
-	public void secondAdvice() {
-		
-		System.out.println("second Advice ");
+
+//	@Pointcut("execution(* * aspects.model.Circle.*(..)")
+	@Pointcut("within(aspects.model.Circle)")
+	public void allCircleMethods() {
+
+		System.out.println("All circle methods");
 	}
-	
-	@Pointcut("execution(* get*(..))")
-	public void AllGetters() {}
-	
+
 }
