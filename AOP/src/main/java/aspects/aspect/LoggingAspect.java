@@ -33,7 +33,12 @@ public class LoggingAspect {
 
 	@AfterReturning("args(name)")
 	public void stringArgumentAfterReturning(String name) {
-		System.out.println("AfterReturning: "+name);
+		System.out.println("AfterReturningString: "+name);
+	}
+	
+	@AfterReturning(pointcut="args(name)", returning="returnString")
+	public void stringArgumentAfterReturning2(String name, String returnString) {
+		System.out.println("AfterReturningString2: "+name + " the output value is "+returnString);
 	}
 	
 	
