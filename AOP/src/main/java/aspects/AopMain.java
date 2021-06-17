@@ -10,8 +10,8 @@ public class AopMain {
 	public static void main(String[] args) {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
 		ShapeService shapeServiece = ctx.getBean("shapeService", ShapeService.class);
-		shapeServiece.getCircle().setName("Dumy name");
-		System.out.println(shapeServiece.getCircle().getName());
+		shapeServiece.getCircle().setNameReturn("Dumy name");
+	//	System.out.println(shapeServiece.getCircle().getName());
 		
 //		System.out.println(shapeServiece.getTriangle().getName());
 	}

@@ -16,7 +16,7 @@
   
     <bean name="circle" class="aspects.model.Circle">
   	<property name="name" value="Circle name"/>
-  </bean>
+  </bean> 
   
   <bean name ="shapeService" class="aspects.service.ShapeService" autowire="byName" />
   
