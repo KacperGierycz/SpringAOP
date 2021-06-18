@@ -30,7 +30,7 @@ public class LoggingAspect {
 	 */	
 //	@Around("@annotation(aspects.aspect.Loggable)")//("allGetters()")
 	
-	@Around("allGetters()")
+	//@Around("allGetters()") xml aop aroud
 	public Object myAroundAdvice(ProceedingJoinPoint proceeding) {
 		
 		Object returnValue=null;
@@ -71,10 +71,11 @@ public class LoggingAspect {
 	 */
 	 
 
-	@Pointcut("execution(* get*())")
-	public void allGetters() {
-	//	System.out.println("Advice run .Get method caled");
-	}
+	
+	/* done in xml
+	 * @Pointcut("execution(* get*())") public void allGetters() { //
+	 * System.out.println("Advice run .Get method caled"); }
+	 */
 
 //	@Pointcut("execution(* * aspects.model.Circle.*(..)")
 	/*

@@ -23,7 +23,11 @@
   <bean name ="loggingAspect" class ="aspects.aspect.LoggingAspect"/>
   
   <aop:config>
-  <aop:aspect id="loggingAspect" ref="loggingAspect"></aop:aspect>
+  	<aop:aspect id="loggingAspect" ref="loggingAspect">
+  	<aop:pointcut expression="execution(* get*())" id="allGetters"/>
+	<aop:around pointcut-ref="allGetters" method="myAroundAdvice"/>  
+  
+  </aop:aspect>
   
   
   </aop:config>
