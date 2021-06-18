@@ -10,24 +10,27 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
-@Aspect
+//@Aspect remove due to xml configuration 
 public class LoggingAspect {
 
 //	@Before("execution(public String aspects.model.Circle.getName())")
-	@Before("allCircleMethods()")
-	public void LoggingAdvice(JoinPoint joinPoint) {
-
-		System.out.println(joinPoint.getTarget());
-		
-	}
+//	@Before("allCircleMethods()")
+	/*
+	 * public void LoggingAdvice(JoinPoint joinPoint) {
+	 * 
+	 * System.out.println(joinPoint.getTarget());
+	 * 
+	 * }
+	 */	
+	/*
+	 * @AfterThrowing(pointcut="args(name)", throwing ="ex") public void
+	 * exceptionAdvice(String name, RuntimeException ex) {
+	 * 
+	 * System.out.println("Exception has been thrown"); }
+	 */	
+//	@Around("@annotation(aspects.aspect.Loggable)")//("allGetters()")
 	
-	@AfterThrowing(pointcut="args(name)", throwing ="ex")
-	public void exceptionAdvice(String name, RuntimeException ex) {
-		
-		System.out.println("Exception has been thrown");
-	}
-	
-	@Around("@annotation(aspects.aspect.Loggable)")//("allGetters()")
+	@Around("allGetters()")
 	public Object myAroundAdvice(ProceedingJoinPoint proceeding) {
 		
 		Object returnValue=null;
@@ -38,7 +41,7 @@ public class LoggingAspect {
 			returnValue= proceeding.proceed();
 			System.out.println("after returning");
 		} catch (Throwable e) {
-System.out.println("After Throwing");
+			System.out.println("After Throwing");
 		}
 		System.out.println("after Finally");
 		
@@ -46,20 +49,18 @@ System.out.println("After Throwing");
 	}
 	
 	
-	@After("args(name)")
-	public void stringArgument(String name) {
-		System.out.println("A method that takes String argument: "+name);
-	}
-
-	@AfterReturning("args(name)")
-	public void stringArgumentAfterReturning(String name) {
-		System.out.println("AfterReturningString: "+name);
-	}
-	
-	@AfterReturning(pointcut="args(name)", returning="returnString")
-	public void stringArgumentAfterReturning2(String name, Object returnString) {
-		System.out.println("AfterReturningString2: "+name + " the output value is "+returnString);
-	}
+	/*
+	 * @After("args(name)") public void stringArgument(String name) {
+	 * System.out.println("A method that takes String argument: "+name); }
+	 * 
+	 * @AfterReturning("args(name)") public void stringArgumentAfterReturning(String
+	 * name) { System.out.println("AfterReturningString: "+name); }
+	 * 
+	 * @AfterReturning(pointcut="args(name)", returning="returnString") public void
+	 * stringArgumentAfterReturning2(String name, Object returnString) {
+	 * System.out.println("AfterReturningString2: "+name +
+	 * " the output value is "+returnString); }
+	 */
 	
 	
 	/*
@@ -70,16 +71,16 @@ System.out.println("After Throwing");
 	 */
 	 
 
-	@Pointcut("execution(* get*(..))")
+	@Pointcut("execution(* get*())")
 	public void allGetters() {
-		System.out.println("Advice run .Get method caled");
+	//	System.out.println("Advice run .Get method caled");
 	}
 
 //	@Pointcut("execution(* * aspects.model.Circle.*(..)")
-	@Pointcut("within(aspects.model.Circle)")
-	public void allCircleMethods() {
-
-		System.out.println("All circle methods");
-	}
+	/*
+	 * @Pointcut("within(aspects.model.Circle)") public void allCircleMethods() {
+	 * 
+	 * System.out.println("All circle methods"); }
+	 */
 
 }
