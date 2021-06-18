@@ -1,5 +1,7 @@
 package aspects.model;
 
+import aspects.aspect.Loggable;
+
 public class Circle {
 	
 	private String name;
@@ -14,6 +16,7 @@ public class Circle {
 	//	throw(new RuntimeException()); 
 	}
 	
+
 	public String setNameReturn(String name) {
 		this.name = name;
 
